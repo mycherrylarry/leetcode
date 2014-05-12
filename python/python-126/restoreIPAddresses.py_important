@@ -1,0 +1,48 @@
+#!/usr/bin/env python
+from unittest import *
+#print root
+
+'''
+Given s = "25525511135",
+return ["255.255.11.135", "255.255.111.35"]
+
+Description:
+    1. DP
+Time Complexity:
+Result: AC
+'''
+
+class Solution:
+
+    # check if items like [1,3,2] is acceptable
+    def check(self, li):
+        # 0 will not be the start of any sub-ip
+        if len(li) > 1 and li[0] == "0": return False
+        return 0 <= reduce(lambda x,y: x*10 +y, [int(item) for item in li]) <= 255
+    
+    def solve(self, s, route, result, index):
+        if len(route) == 4:
+            if index == len(s):
+                result.append(".".join([item for item in route]))
+            return
+        j = index
+        while j < len(s):
+            if not self.check(s[index: j+1]):
+                break
+            route.append(s[index: j+1])
+            self.solve(s, route, result, j+1)
+            route.pop()
+            j += 1
+        return
+    
+    
+    def restoreIpAddresses(self, s):
+        route = []
+        result = []
+        self.solve(s, route, result, 0)
+        return result
+
+s = Solution()
+#print s.restoreIpAddresses("25525511135")
+print s.restoreIpAddresses("010010")
+

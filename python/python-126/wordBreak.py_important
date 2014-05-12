@@ -1,0 +1,76 @@
+#!/usr/bin/env python
+from unittest import *
+
+'''
+Description:
+    1. Trie
+    2. DFS: Time limited exceed
+    3. DP: set route[i]
+        route[i] = 1 if s[i:] can be created by dictionaries
+        route[i] = 0 else
+        return route[0]
+Time Complexity: O(N*N)
+Result: AC
+'''
+
+class TrieNode:
+    def __init__(self, c, val = None):
+        self.c = c
+        self.val = val
+        self.children = {}
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode(None)
+
+    def insert(self, word):
+        p = self.root
+        for item in word:
+            if not p.children.has_key(item):
+                p.children[item] = TrieNode(item)
+            p = p.children[item]
+        p.val = word
+
+    def create(self, li):
+        for word in li:
+            self.insert(word)
+
+class Solution:
+    def solve(self, root, s):
+        l = len(s)
+        route = [0]*(l+1)
+        route[l] = 1
+        i = l - 1
+        while i >= 0:
+            p = root
+            j = i
+            tag = False
+            while j<l and p.children.has_key(s[j]):
+                p = p.children[s[j]]
+                j += 1
+                if p.val != None:
+                    if route[j] == 1:
+                        tag = True
+                        break
+            route[i] = tag
+            i -= 1
+        return route[0]
+
+
+    def wordBreak(self, s, dict):
+        trie = Trie()
+        trie.create(dict)
+        root = trie.root
+        return self.solve(root, s)
+
+s = Solution()
+
+print s.wordBreak("leetcode", ["leet", "code"])
+print s.wordBreak("leetcode", ["lee", "tco", "de"])
+print s.wordBreak("leetcode", ["eleet", "cod"])
+print s.wordBreak("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab", ["a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"])
+print s.wordBreak("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab", ["a"])
+print s.wordBreak("aaaaaaaaaaaaaaaaaaa", ["a", "aa"])
+
+
+

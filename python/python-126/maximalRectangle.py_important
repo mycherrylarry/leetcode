@@ -1,0 +1,79 @@
+#!/usr/bin/env python
+from unittest import *
+
+'''
+Description:
+    1. DP
+    2. set a route, stores the erect number of current row
+    3. use the O(N) method to caculate the area
+
+exp:
+        w
+    0 1 1 0 1
+ h  0 1 1 1 0
+    1 0 1 1 0
+    1 0 1 1 1
+route:
+    0 1 1 0 1
+    0 2 2 1 0
+    1 0 3 2 0
+    2 0 4 3 1
+Time Complexity: O(N*N)
+Result: AC
+'''
+
+class Solution:
+
+    def caculateRoute(self, matrix):
+        h = len(matrix)
+        w = len(matrix[0])
+        route = [[0]*w for i in range(h)]
+        for j in range(w):
+            route[0][j] = matrix[0][j]
+        for i in range(1, h):
+            for j in range(w):
+                if matrix[i][j] == 0:
+                    route[i][j] = 0
+                else:
+                    route[i][j] = route[i-1][j] + 1
+        return route
+    
+    # Compute the largets rectangle area of a given list
+    def caculateLargestRectangleArea(self, li):
+        result = 0
+        stack = []
+        i = 0
+        li.append(0)
+        while i < len(li):
+            if len(stack) == 0 or li[stack[-1]] <= li[i]:
+                stack.append(i)
+                i += 1
+            else:
+                top = stack.pop()
+                if len(stack) == 0:
+                    result = max(result, li[top] * i)
+                else:
+                    result = max(result, li[top] * (i - stack[-1] - 1))
+        return result
+    
+    def maximalRectangle(self, matrix):
+        h = len(matrix)
+        if h == 0: return 0
+        w = len(matrix[0])
+        if w == 0: return 0
+        processed_matrix = [[int(i) for i in list(item)] for item in matrix]
+        route = self.caculateRoute(processed_matrix)
+        result = 0
+        for item in route:
+            result = max(result, self.caculateLargestRectangleArea(item))
+        return result
+
+matrix = [
+    [0, 1, 1, 0, 1],
+    [0, 1, 1, 1, 0],
+    [1, 0, 1, 1, 0],
+    [1, 0, 1, 1, 1]
+    ]
+s = Solution()
+print s.maximalRectangle(matrix)
+print s.maximalRectangle(["00","00"])

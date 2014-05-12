@@ -1,0 +1,59 @@
+#!/usr/bin/env python
+
+'''
+Description:
+    1. Create a Trie, and store the dictionary
+    2. Lookup words by DFS
+Strategy: DFS
+Time Complexity:
+Result: Time Limit
+TODO: Refine by Dynamic Programming
+'''
+
+class Trie:
+    def __init__(self, c, val = None):
+        self.c = c
+        self.val = val
+        self.children = {}
+
+class Solution:
+    # Create the trie from a dictionary
+    def createTrie(self, li):
+        root = Trie(None)
+        for item in li:
+            p = root
+            for c in item:
+                if not p.children.has_key(c):
+                    p.children[c] = Trie(c)
+                p = p.children[c]
+            p.val = item
+        return root
+    
+    def solve(self, trie, s, i, result, route):
+        if i == len(s):
+            result.append(" ".join([item for item in route]))
+            return
+        p = trie
+        # Lookup for every valid word
+        while i < len(s) and p.children.has_key(s[i]):
+            p = p.children[s[i]]
+            i += 1
+            if p.val != None: # This is a valid word, and we should put it into the route
+                route.append(p.val)
+                self.solve(trie, s, i, result, route) # Start DFS
+                route.pop()
+    
+    def wordBreak(self, s, dict):
+        trie = self.createTrie(dict)
+        result = []
+        route = []
+        self.solve(trie, s, 0, result, route)
+        return result
+
+#print createTrie(["abc", "ab", "acb","abd"]).children["a"].children["b"].children
+
+s = Solution()
+#print s.wordBreak("catsanddog", ["cat", "cats", "and", "sand", "dog"])
+print s.wordBreak("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab", ["a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"]) 
+#print s.wordBreak("aaaaaaaaaaaaaaa", ["a","aa"])
+#print s.wordBreak("aaaaaaa", ["aaaa","aa"])

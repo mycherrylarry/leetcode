@@ -1,0 +1,56 @@
+#!/usr/bin/env python
+
+def findTarget(li, target):
+    i, j = 0, len(li)-1
+    result = []
+    while i < j:
+        if li[i] + li[j] == target:
+            result.append([i, j])
+            i += 1
+            j -= 1
+        elif li[i] + li[j] < target:
+            i += 1
+        else:
+            j -= 1
+    return result
+
+def quickSort(li):
+    if len(li) in (0, 1): return li
+    lesser = quickSort(filter(lambda x: x<= li[-1], li[:-1]))
+    bigger = quickSort(filter(lambda x: x> li[-1], li[:-1]))
+    return lesser + [li[-1]] + bigger
+
+def containsDu(li):
+    i = 1
+    while i < len(li):
+        if li[i-1] == li[i]:
+            return False
+        i += 1
+    return True
+
+def fourSum(num, target):
+    if len(num) < 4 : return []
+    l = len(num)
+    mp = {}
+    for i in range(l-1):
+        for j in range(i+1, l):
+            tmp = num[i] + num[j]
+            if mp.has_key(tmp):
+                mp[tmp].append([i, j])
+            else:
+                mp[tmp] = [[i, j]]
+    li = quickSort(mp.keys())
+    result1 = findTarget(li, target)
+    result = []
+    for item in result1:
+        x, y = item
+        for x1 in mp[li[x]]:
+            for y1 in mp[li[y]]:
+                t = quickSort(x1 + y1)
+                if not containsDu(t):
+                    result.append(quickSort([num[item] for item in t]))
+    return result
+
+
+
+print fourSum([1,0,-1,0,-2,2], 0)

@@ -1,0 +1,56 @@
+#!/usr/bin/env python
+from unittest import *
+#print root
+from util.List import *
+
+'''
+Description:
+    Important
+Time Complexity:
+Result: AC
+'''
+
+class Solution:
+    def adds(self, l1, l2, remainder):
+        if l1 == None:
+            if remainder != 0:
+                if l2 != None:
+                    v = l2.val
+                    l2.val = (v + remainder)%10
+                    remainder = (v + remainder)/10
+                    l2.next = self.adds(l1, l2.next, remainder)
+                    return l2
+                else:
+                    return ListNode(remainder)
+            else:
+                return l2
+        if l2 == None:
+            if remainder != 0:
+                if l1 != None:
+                    v = l1.val
+                    l1.val = (v + remainder)%10
+                    remainder = (v + remainder)/10
+                    l1.next = self.adds(l1.next, l2, remainder)
+                    return l1
+                else:
+                    return ListNode(remainder)
+            else:
+                return l1
+        v1 = l1.val
+        v2 = l2.val
+        l1.val = (v1 + v2 + remainder)%10
+        remainder = (v1 + v2 + remainder)/10
+        l1.next = self.adds(l1.next, l2.next, remainder)
+        return l1
+    
+    
+    def addTwoNumbers(self, l1, l2):
+        return self.adds(l1, l2, 0)
+
+s = Solution()
+l1 = ListNode(5)
+l1.next = ListNode(5)
+l2 = ListNode(5)
+h = s.addTwoNumbers(l1,l2)
+List.prettyPrint(h)
+

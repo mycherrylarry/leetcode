@@ -1,0 +1,8 @@
+*.pyc
+*.swp
+java/.idea/*
+java/out/*
+scala/.idea/*
+scala/out/*
+java/src/practice/*
+

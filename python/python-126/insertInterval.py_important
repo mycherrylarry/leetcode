@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+from unittest import *
+#print root
+
+'''
+Description:
+Time Complexity:
+Result: AC
+
+'''
+
+class Interval:
+    def __init__(self, s=0, e=0):
+        self.start = s
+        self.end = e
+
+class Solution:
+    def insert(self, intervals, newInterval):
+        i = 0
+        while i < len(intervals):
+            if newInterval.end < intervals[i].start:
+                intervals.insert(i, newInterval)
+                return intervals
+            elif newInterval.start > intervals[i].end:
+                i += 1
+            else:
+                newInterval.start = min(intervals[i].start, newInterval.start)
+                newInterval.end = max(intervals[i].end, newInterval.end)
+                del(intervals[i])
+        intervals.insert(len(intervals), newInterval)
+        return intervals
+
+
+s = Solution()
+print s.insert([], Interval(1,2))

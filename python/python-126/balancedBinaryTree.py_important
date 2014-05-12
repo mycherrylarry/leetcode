@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+from unittest import *
+#print root
+from util.Tree import *
+
+'''
+******
+Description:
+    1. if subtree is balanced, return the height, else return -1
+Time Complexity: O(N)
+Result: AC
+Reference: http://blog.csdn.net/beiyetengqing/article/details/7637828
+very important
+'''
+
+class Solution:
+    # if the subtree is balanced, return height, else -1
+    def height(self, root):
+        if root == None: return 0
+        left = self.height(root.left)
+        if left == -1: return -1
+        right = self.height(root.right)
+        if right == -1: return -1
+        if abs(left - right) > 1: return -1
+        return max(left, right) + 1
+    
+    def isBalanced(self, root):
+        return self.height(root) != -1
+
+
+s = Solution()
+root = TreeNode(1)
+a = TreeNode(1)
+b = TreeNode(1)
+root.left= a
+root.right= b
+print s.isBalanced(root)
+

@@ -1,0 +1,57 @@
+#!/usr/bin/env python
+from unittest import *
+from util.Tree import *
+from util.List import *
+#print root
+
+'''
+Description:
+    1. Create two hashMaps: needToFind and alreadyFound
+    2. Create foundLen = found numbers
+Time Complexity: O(N*N)
+Result:
+'''
+class Solution:
+    def solve(self, S, L, result, alreadyFound, needToFind, foundLen, index):
+        w = len(L[0])
+        if foundLen == len(L):
+            result.append(index - foundLen*w)
+            return 
+        if index + w > len(S):
+            return
+        word = S[index:index+w]
+        if needToFind.has_key(word):
+            if not alreadyFound.has_key(word):
+                alreadyFound[word] = 1
+                self.solve(S, L, result, alreadyFound, needToFind, foundLen+1, index+w)
+            else:
+                if alreadyFound[word] < needToFind[word]:
+                    alreadyFound[word] += 1
+                    self.solve(S, L, result, alreadyFound, needToFind, foundLen+1, index+w)
+    
+    def createMap(self, L):
+        mp = {}
+        for item in L:
+            if mp.has_key(item):
+                mp[item] += 1
+            else:
+                mp[item] = 1
+        return mp
+    
+    
+    def findSubstring(self, S, L):
+        result = []
+        if len(L) == 0 or len(S) == 0: return result
+        if len(L[0]) == 0: return result
+        w = len(L[0])
+        mp = self.createMap(L)
+        for i in range(len(S) - len(L) + 1):
+            self.solve(S, L, result, {}, mp, 0, i)
+        return result
+
+s = Solution()
+print s.findSubstring("barfoothefoobarman", ["foo", "bar"])
+print s.findSubstring("ababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababa", ["ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba","ab","ba"])
+
+#List.prettyPrint(head)
+#Tree.prettyPrint(root)

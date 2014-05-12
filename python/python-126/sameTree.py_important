@@ -1,0 +1,24 @@
+#!/usr/bin/env python
+from unittest import *
+#print root
+
+'''
+Description:
+    1. use preOrder and postOrder to identify a tree
+Time Complexity:
+Result:
+    AC
+Important!!!!
+'''
+
+class Solution:
+    def isSameTree(self, p, q):
+        if p == None and q != None: return False
+        if p != None and q == None: return False
+        if p == None: return True
+        if p.val != q.val:
+            return False
+        return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+
+s = Solution()
+print s.isSameTree(root,  root)

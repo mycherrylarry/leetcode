@@ -1,0 +1,75 @@
+#!/usr/bin/env python
+from unittest import *
+from util.Tree import *
+from util.List import *
+#print root
+
+'''
+    | a a b a a b
+  --| -----------
+  a | 1 2 0 0 5 0
+  a | * 1 0 3 0 0
+  b | * * 1 0 0 4
+  a | * * * 1 2 0
+  a | * * * * 1 0
+  b | * * * * * 1
+
+Description:
+Time Complexity:
+Result: Time Limit Exceeded
+'''
+
+class Solution:
+    def longestPalindrome(self, s):
+        if len(s) in (0, 1): return s
+        n = len(s)
+        array = [['*']*n for item in range(n)]
+        result = [1, (0,0)]
+        # odd
+        for i in range(n):
+            array[i][i] = 1
+            a, b = i-1, i+1
+            while a >= 0 and b < n:
+                if array[a+1][b-1] == 0:
+                    array[a][b] = 0
+                else:
+                    if s[a] == s[b]:
+                        array[a][b] = array[a+1][b-1] + 2
+                        if array[a][b] > result[0]:
+                            result = [array[a][b], (a, b)]
+                    else:
+                        array[a][b] = 0
+                a -= 1
+                b += 1
+        # even
+        for i in range(n)[:-1]:
+            if s[i] == s[i+1]:
+                array[i][i+1] = 2
+            else:
+                array[i][i+1] = 0
+            a, b = i-1, i+2
+            while a >= 0 and b < n:
+                if array[a+1][b-1] == 0:
+                    array[a][b] = 0
+                else:
+                    if s[a] == s[b]:
+                        array[a][b] = array[a+1][b-1] + 2
+                        if array[a][b] > result[0]:
+                            result = [array[a][b], (a, b)]
+                    else:
+                        array[a][b] = 0
+                a -= 1
+                b += 1
+        x, y = result[1]
+        return s[x: y+1]
+
+
+s = Solution()
+#print s.longestPalindrome("aabaab")
+#print s.longestPalindrome("aabaabh")
+#print s.longestPalindrome("aabacabh")
+print s.longestPalindrome("vaomxdtiuwqlwhgutkhxxhccsgvyoaccuicgybnqnslogtqhblegfudagpxfvjdacsxgevvepuwthdtybgflsxjdmmfumyqgpxatvdypjmlapccaxwkuxkilqqgpihyepkilhlfkdrbsefinitdcaghqmhylnixidrygdnzmgubeybczjceiybowglkywrpkfcwpsjbkcpnvfbxnpuqzhotzspgebptnhwevbkcueyzecdrjpbpxemagnwmtwikmkpqluwmvyswvxghajknjxfazshsvjkstkezdlbnkwxawlwkqnxghjzyigkvqpapvsntojnxlmtywdrommoltpbvxwqyijpkirvndwpgufgjelqvwffpuycqfwenhzrbzbdtupyutgccdjyvhptnuhxdwbmdcbpfvxvtfryszhaakwshrjseonfvjrrdefyxefqfvadlwmedpvnozobftnnsutegrtxhwitrwdpfienhdbvvykoynrsbpmzjtotjxbvemgoxreiveakmmbbvbmfbbnyfxwrueswdlxvuelbkrdxlutyukppkzjnmfmclqpkwzyylwlzsvriwomchzzqwqglpflaepoxcnnewzstvegyaowwhgvcwjhbbstvzhhvghigoazbjiikglbqlxlccrwqvyqxpbtpoqjliziwmdkzfsrqtqdkeniulsavsfqsjwnvpprvczcujihoqeanobhlsvbzmgflhykndfydbxatskf")
+print s.longestPalindrome("ujtofmboiyyrjzbonysurqfxylvhuzzrzqwcjxibhawifptuammlxstcjmcmfvjuphyyfflkcbwimmpehqrqcdqxglqciduhhuhbjnwaaywofljhwzuqsnhyhahtkilwggineoosnqhdluahhkkbcwbupjcuvzlbzocgmkkyhhglqsvrxsgcglfisbzbawitbjwycareuhyxnbvounqdqdaixgqtljpxpyrccagrkdxsdtvgdjlifknczaacdwxropuxelvmcffiollbuekcfkxzdzuobkrgjedueyospuiuwyppgiwhemyhdjhadcabhgtkotqyneioqzbxviebbvqavtvwgyyrjhnlceyedhfechrbhugotqxkndwxukwtnfiqmstaadlsebfopixrkbvetaoycicsdndmztyqnaehnozchrakt")
+
+#List.prettyPrint(head)
+#Tree.prettyPrint(root)
