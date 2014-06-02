@@ -6,7 +6,7 @@ from unittest import *
 '''
 Problem:
 Method:
-Resolution:
+Solution:
 Time Complexity:
 Space Complexity:
 Result:
