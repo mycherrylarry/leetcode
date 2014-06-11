@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 class Node:
     def __init__(self,k,x):
         self.key=k
@@ -73,3 +74,11 @@ class LRUCache:
                 self.size -=1
                 del self.P[self.cache.tail.key]
                 self.cache.removeLast()
+
+doubleLinkedList = DoubleLinkedList()
+for item in range(10):
+    doubleLinkedList.addFirst(Node(item, 2))
+
+print doubleLinkedList.tail.val
+print doubleLinkedList.tail.prev.val
+
