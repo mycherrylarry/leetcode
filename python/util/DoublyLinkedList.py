@@ -13,7 +13,7 @@ class DoublyLinkedList:
         self.tail = None
 
     # add node to the front of list
-    def add_front(self, node):
+    def push_left(self, node):
         if not self.head:
             self.head = node
             self.tail = node
@@ -47,12 +47,12 @@ class DoublyLinkedList:
         while p != None:
             print p.value, "<->",
             p = p.next
-        print
+        print "nil"
 
 
 doubly_linked_list = DoublyLinkedList()
 for item in range(10):
-    doubly_linked_list.add_front(Node(item))
+    doubly_linked_list.push_left(Node(item))
 
 doubly_linked_list.remove_end()
 doubly_linked_list.pretty_print()

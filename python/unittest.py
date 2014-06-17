@@ -24,7 +24,7 @@ t = Tree()
 root = t.createTree([1,2,3,4,5,6])
 
 from util.List import *
-h = List([1,2,2,3,3,3,3,4])
+h = List([1,4,3,2,5,2])
 head = h.head.next
 
 if __name__ == "__main__":
