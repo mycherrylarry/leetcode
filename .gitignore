@@ -5,4 +5,8 @@ java/out/*
 scala/.idea/*
 scala/out/*
 java/src/practice/*
-
+*.suo
+*.exe
+csharp/Solutions/Solutions/bin/*
+csharp/Solutions/Solutions/obj/*
+*.userosscache
