@@ -21,8 +21,8 @@ namespace Solutions
             }
             List<int> pre = preorder.ToList();
             List<int> ino = inorder.ToList();
-            root.left = BuildTree(pre.GetRange(1, i).ToArray(), ino.GetRange(0, i).ToArray());
-            root.right = BuildTree(pre.GetRange(i + 1, preorder.Length - i - 1).ToArray(), ino.GetRange(i + 1, preorder.Length - i - 1).ToArray());
+            root.left = BbuildTree(pre.GetRange(1, i).ToArray(), ino.GetRange(0, i).ToArray());
+            root.right = BbuildTree(pre.GetRange(i + 1, preorder.Length - i - 1).ToArray(), ino.GetRange(i + 1, preorder.Length - i - 1).ToArray());
 
             return root;
         }

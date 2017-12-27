@@ -7,6 +7,5 @@ using System.Threading.Tasks;
 namespace Solutions
 {
     class Calculator
-    {
-    }
+    { }
 }

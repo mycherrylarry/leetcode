@@ -13,7 +13,7 @@ namespace Solutions.DP
             if (nums.Length == 0) return 0;
             if (nums.Length == 1) return nums[0];
 
-            return Math.Max(SubRob(nums), SubRob(nums.ToList().GetRange(0, nums.Length - 1).ToArray()));
+            return Math.Max(SubRob(nums.ToList().GetRange(1, nums.Length - 1).ToArray()), SubRob(nums.ToList().GetRange(0, nums.Length - 1).ToArray()));
         }
 
         private int SubRob(int[] nums)

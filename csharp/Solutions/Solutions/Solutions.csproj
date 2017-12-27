@@ -43,11 +43,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="2017-12-26\BasicCalculatorII.cs" />
+    <Compile Include="2017-12-26\BuildTree.cs" />
+    <Compile Include="2017-12-26\Calculator.cs" />
+    <Compile Include="2017-12-26\DP\BasicCalculatorII.cs" />
+    <Compile Include="2017-12-26\DP\DecodeWays.cs" />
+    <Compile Include="2017-12-26\DP\HouseRobber.cs" />
+    <Compile Include="2017-12-26\DP\HouseRobberII.cs" />
+    <Compile Include="2017-12-26\DP\MaximalSqare.cs" />
+    <Compile Include="2017-12-26\DP\MaxProduct.cs" />
+    <Compile Include="2017-12-26\DP\UniquePathsII.cs" />
+    <Compile Include="2017-12-26\FizzBuzzQ.cs" />
+    <Compile Include="2017-12-26\MergeIntervals.cs" />
+    <Compile Include="2017-12-27\AverageOfLevelsInBinaryTree.cs" />
+    <Compile Include="2017-12-27\FindLargestValueInEachTreeRow.cs" />
+    <Compile Include="2017-12-27\GroupAnagrams.cs" />
+    <Compile Include="2017-12-27\LexicographicalNumber.cs" />
+    <Compile Include="2017-12-27\MaxAreaOfIsland.cs" />
+    <Compile Include="2017-12-27\NumberOfIslands.cs" />
+    <Compile Include="2017-12-27\TwoSumII.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="2017-12-27\ReverseWordsInAString.cs" />
+    <Compile Include="TreeNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Important.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
